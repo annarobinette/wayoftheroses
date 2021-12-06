@@ -1,12 +1,12 @@
-d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/3d-line1.csv', function(err, rows){
+d3.csv('https://raw.githubusercontent.com/annarobinette/wayoftheroses/blob/main/track_points.csv, function(err, rows){
       function unpack(rows, key) {
           return rows.map(function(row)
           { return row[key]; }); }
 
-var x = unpack(rows , 'x');
-var y = unpack(rows , 'y');
-var z = unpack(rows , 'z');
-var c = unpack(rows , 'color');
+var x = unpack(rows , 'X');
+var y = unpack(rows , 'Y');
+var z = unpack(rows , 'ele');
+///var c = unpack(rows , 'color');
 Plotly.newPlot('myDiv', [{
   type: 'scatter3d',
   mode: 'lines',
@@ -16,7 +16,7 @@ Plotly.newPlot('myDiv', [{
   opacity: 1,
   line: {
     width: 6,
-    color: c,
+    color: 000000,
     reversescale: false
   }
 }], {
