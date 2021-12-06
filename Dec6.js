@@ -1,4 +1,4 @@
-d3.csv('https://raw.githubusercontent.com/annarobinette/wayoftheroses/blob/main/track_points.csv, function(err, rows){
+d3.csv('https://raw.githubusercontent.com/annarobinette/wayoftheroses/main/track_points.csv', function(err, rows){
       function unpack(rows, key) {
           return rows.map(function(row)
           { return row[key]; }); }
@@ -7,7 +7,7 @@ var x = unpack(rows , 'X');
 var y = unpack(rows , 'Y');
 var z = unpack(rows , 'ele');
 ///var c = unpack(rows , 'color');
-Plotly.newPlot('myDiv', [{
+Plotly.newPlot('map', [{
   type: 'scatter3d',
   mode: 'lines',
   x: x,
@@ -20,6 +20,7 @@ Plotly.newPlot('myDiv', [{
     reversescale: false
   }
 }], {
-  height: 640
+  height: 980
+
 });
 });
