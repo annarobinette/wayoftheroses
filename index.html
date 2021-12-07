@@ -2,27 +2,58 @@
 <html>
 <head>
 <meta charset=utf-8 />
-<title>A simple map</title>
+<title>Way of the Roses</title>
 //https://raw.githubusercontent.com/annarobinette/wayoftheroses/main/index.html//
-<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-<script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
-<link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' />
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
 <style>
-  body { margin:0; padding:0; }
-  #map { position:absolute; top:0; bottom:0; width:100%; }
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
 </style>
 </head>
 <body>
-	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
+<div id="map"></div>
 
-<div id='map'></div>
+<script src="track.js"></script>
+<script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
 
 <script>
-L.mapbox.accessToken = 'pk.eyJ1IjoiYW5uYXZyb2JpbmV0dGUiLCJhIjoiY2tucHVmbXIyMWNvazJ1bzVjZTBsZGVmayJ9.fIwFH_ua7hAqylh4TDESxA';
-var map = L.mapbox.map('map')
-    .setView([54, -2.1], 9)
-    .addLayer(L.mapbox.styleLayer('mapbox://styles/annavrobinette/cknpuhctd0id817nxnllxe9m6'));
-		omnivore.csv('https://raw.githubusercontent.com/annarobinette/wayoftheroses/main/track_points.csv').addTo(map);
+	// TO MAKE THE MAP APPEAR YOU MUST
+	// ADD YOUR ACCESS TOKEN FROM
+	// https://account.mapbox.com pk.eyJ1IjoiYW5uYXZyb2JpbmV0dGUiLCJhIjoiY2tucHVmbXIyMWNvazJ1bzVjZTBsZGVmayJ9.fIwFH_ua7hAqylh4TDESxA
+	mapboxgl.accessToken = 'pk.eyJ1IjoiYW5uYXZyb2JpbmV0dGUiLCJhIjoiY2tucHVmbXIyMWNvazJ1bzVjZTBsZGVmayJ9.fIwFH_ua7hAqylh4TDESxA';
+const map = new mapboxgl.Map({
+container: 'map',
+style: 'mapbox://styles/mapbox/cjaudgl840gn32rnrepcb9b9g', // the outdoors-v10 style but without Hillshade layers
+center: [-2.1, 54],
+zoom: 12,
+pitch: 65,
+bearing: 0,
+style: 'mapbox://styles/mapbox-map-design/ckhqrbxlc1awj19svtb92m0bd'
+
+// this is the path the camera will look at
+const targetRoute = track.target;
+// this is the path the camera will move along
+const cameraRoute = track.camera;
+
+map.on('load', () => {
+map.addSource('dem', {
+'type': 'raster-dem',
+'url': 'mapbox://mapbox.mapbox-terrain-dem-v1'
+});
+map.addLayer(
+{
+'id': 'hillshading',
+'source': 'dem',
+'type': 'hillshade'
+// insert below waterway-river-canal-shadow;
+// where hillshading sits in the Mapbox Outdoors style
+},
+'waterway-river-canal-shadow'
+);
+});
 </script>
+
 </body>
 </html>
