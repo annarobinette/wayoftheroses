@@ -1,37 +1,28 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html>
 <head>
-    <meta charset='utf-8' />
-    <title>Day 2</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1' />
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-
-	<!-- Load plotly.js into the DOM -->
-	<script src='https://cdn.plot.ly/plotly-2.6.3.min.js'></script>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-      }
-
-      #map {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 100%;
-      }
-    </style>
+<meta charset=utf-8 />
+<title>A simple map</title>
+//https://raw.githubusercontent.com/annarobinette/wayoftheroses/main/index.html//
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' />
+<style>
+  body { margin:0; padding:0; }
+  #map { position:absolute; top:0; bottom:0; width:100%; }
+</style>
 </head>
 <body>
+	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
 
+<div id='map'></div>
 
-<body>
-	<div id='<map>
-
-	</map>'><!-- Plotly chart will be drawn inside this DIV --></div>
-</body>
-
+<script>
+L.mapbox.accessToken = 'pk.eyJ1IjoiYW5uYXZyb2JpbmV0dGUiLCJhIjoiY2tucHVmbXIyMWNvazJ1bzVjZTBsZGVmayJ9.fIwFH_ua7hAqylh4TDESxA';
+var map = L.mapbox.map('map')
+    .setView([54, -2.1], 9)
+    .addLayer(L.mapbox.styleLayer('mapbox://styles/annavrobinette/cknpuhctd0id817nxnllxe9m6'));
+		omnivore.csv('https://raw.githubusercontent.com/annarobinette/wayoftheroses/main/track_points.csv').addTo(map);
+</script>
 </body>
 </html>
